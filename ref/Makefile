@@ -1,6 +1,6 @@
 CC ?= /usr/bin/cc
 CFLAGS += -Wall -Wextra -Wpedantic -Wmissing-prototypes -Wredundant-decls \
-   -Wshadow -Wpointer-arith -march=native -mtune=native -O3
+   -Wshadow -Wpointer-arith -march=native -mtune=native -pg -g
 NISTFLAGS += -Wno-unused-result -march=native -mtune=native -O3
 SOURCES = sign.c packing.c polyvec.c poly.c ntt.c reduce.c rounding.c
 HEADERS = config.h params.h api.h sign.h packing.h polyvec.h poly.h ntt.h \

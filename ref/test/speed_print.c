@@ -28,13 +28,13 @@ static uint64_t average(uint64_t *t, size_t tlen) {
   return acc/tlen;
 }
 
-void print_results(const char *s, uint64_t *t, size_t tlen) {
+unsigned long print_results(const char *s, uint64_t *t, size_t tlen, char* gencsv) {
   size_t i;
   static uint64_t overhead = -1;
 
   if(tlen < 2) {
     fprintf(stderr, "ERROR: Need a least two cycle counts!\n");
-    return;
+    return 0;
   }
 
   if(overhead  == (uint64_t)-1)
@@ -47,5 +47,15 @@ void print_results(const char *s, uint64_t *t, size_t tlen) {
   printf("%s\n", s);
   printf("median: %llu cycles/ticks\n", (unsigned long long)median(t, tlen));
   printf("average: %llu cycles/ticks\n", (unsigned long long)average(t, tlen));
+  printf("min: %ld - max: %ld cycles/ticks\n", t[0], t[tlen-1]);
   printf("\n");
+  if (gencsv) {
+    FILE* fp = fopen(gencsv, "w");
+    if (!fp) return 0;
+    fprintf(fp, "Test round, Cycle count\n");
+    for (i=0;i<tlen;++i)
+      fprintf(fp, "%ld, %ld\n", i, t[i]);
+    fclose(fp);
+  }
+  return t[tlen-1]+overhead;
 }
