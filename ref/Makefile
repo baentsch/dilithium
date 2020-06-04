@@ -1,6 +1,6 @@
 CC ?= /usr/bin/cc
 CFLAGS += -Wall -Wextra -Wpedantic -Wmissing-prototypes -Wredundant-decls \
-   -Wshadow -Wpointer-arith -march=native -mtune=native -pg -g
+   -Wshadow -Wpointer-arith -march=native -mtune=native -g
 NISTFLAGS += -Wno-unused-result -march=native -mtune=native -O3
 SOURCES = sign.c packing.c polyvec.c poly.c ntt.c reduce.c rounding.c
 HEADERS = config.h params.h api.h sign.h packing.h polyvec.h poly.h ntt.h \
@@ -9,6 +9,12 @@ KECCAK_SOURCES = $(SOURCES) fips202.c symmetric-shake.c
 KECCAK_HEADERS = $(HEADERS) fips202.h
 AES_SOURCES = $(SOURCES) fips202.c aes256ctr.c symmetric-aes.c
 AES_HEADERS = $(HEADERS) fips202.h aes256ctr.h
+
+UNAME_S := $(shell uname -s)
+ifneq ($(UNAME_S),Darwin)
+    # clang on OSX doesn't like this
+    CFLAGS += -pg
+endif
 
 .PHONY: all shared clean
 

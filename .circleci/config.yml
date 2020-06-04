@@ -47,6 +47,10 @@ localCheckout: &localCheckout
             shell: cmd.exe
 
 jobs:
+  alpine-amd64:
+    <<: *unixjob
+    environment:
+      IMAGE: openquantumsafe/ci-alpine-amd64:latest
   centos-7-amd64:
     <<: *unixjob
     environment:
@@ -104,6 +108,7 @@ workflows:
       #      branches:
       #        only:
       #          - /mb-.*/
+      - alpine-amd64
       - centos-7-amd64
       - centos-8-amd64
       - debian-buster-amd64
