@@ -20,7 +20,7 @@ localCheckout: &localCheckout
     - checkout # change this from "checkout" to "*localCheckout" when running CircleCI locally
     - run:
         name: Build-and-Test
-        command: ./runtests.sh > test-results
+        command: source ~/.bashrc && ./runtests.sh > test-results
     - store_artifacts:
         path: test-results
 
@@ -50,7 +50,7 @@ jobs:
   alpine-amd64:
     <<: *unixjob
     environment:
-      IMAGE: openqsafe/ci-alpine-amd64:latest
+      IMAGE: openquantumsafe/ci-alpine-amd64:latest
   centos-7-amd64:
     <<: *unixjob
     environment:
