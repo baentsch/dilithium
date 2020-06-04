@@ -19,7 +19,7 @@ else
     ifneq ($(OSID),ID=alpine)
       CFLAGS += -pg
     endif
-    ifeq($(OSID),ID="centos")
+    ifeq ($(OSID),ID="centos")
       CFLAGS += -I /usr/local/ssl/include
     endif
 endif
