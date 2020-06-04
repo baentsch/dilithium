@@ -12,8 +12,12 @@ AES_HEADERS = $(HEADERS) fips202.h aes256ctr.h
 
 UNAME_S := $(shell uname -s)
 ifneq ($(UNAME_S),Darwin)
-    # clang on OSX doesn't like this
-    CFLAGS += -pg
+    CFLAGS += -I /usr/local/Cellar/openssl@1.1/1.1.1d/include
+    # clang on OSX doesn't like this; alpine neither
+    OSID := $(shell grep ^ID /etc/os-release)
+    ifneq ($(OSID),ID=alpine)
+      CFLAGS += -pg
+    endif
 endif
 
 .PHONY: all shared clean
