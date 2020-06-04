@@ -14,8 +14,13 @@ AES_SOURCES = $(SOURCES) fips202.c aes256ctr.c
 AES_HEADERS = $(HEADERS) fips202.h aes256ctr.h
 
 UNAME_S := $(shell uname -s)
-ifneq ($(UNAME_S),Darwin)
+ifeq ($(UNAME_S),Darwin)
     CFLAGS += -I /usr/local/Cellar/openssl@1.1/1.1.1d/include
+else
+    OSID := $(shell grep ^ID /etc/os-release)
+    ifeq ($(OSID),ID="centos")
+      CFLAGS += -I /usr/local/ssl/include
+    endif
 endif
 
 
