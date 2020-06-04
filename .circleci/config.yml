@@ -50,7 +50,7 @@ jobs:
   alpine-amd64:
     <<: *unixjob
     environment:
-      IMAGE: openquantumsafe/ci-alpine-amd64:latest
+      IMAGE: openqsafe/ci-alpine-amd64:latest
   centos-7-amd64:
     <<: *unixjob
     environment:
@@ -85,6 +85,10 @@ jobs:
         xcode: "11.3.0"
     steps:
         - checkout
+        - run:
+            name: Install dependencies
+            command: |
+              brew update && brew install openssl@1.1 && echo 'export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"' >> ~/.bash_profile && openssl version 
         - run:
             name: Build-and-Test
             command: ./runtests.sh > test-results
