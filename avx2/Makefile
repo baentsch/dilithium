@@ -18,14 +18,14 @@ UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
     CC = /usr/bin/cc
     CFLAGS += -I/usr/local/Cellar/openssl@1.1/1.1.1d/include
-    #NISTFLAGS += -I/usr/local/Cellar/openssl@1.1/1.1.1d/include
     LDFLAGS += -L/usr/local/Cellar/openssl@1.1/1.1.1d/lib
 else
-    OSID := $(shell grep ^ID /etc/os-release)
+    OSID := $(shell grep ^ID= /etc/os-release)
     ifeq ($(OSID),ID="centos")
       CC ?= /usr/bin/cc
       CFLAGS += -I/usr/local/ssl/include
       LDFLAGS += -L/usr/local/ssl/lib
+      NISTFLAGS += -I/usr/local/ssl/include
     else
       CC = /usr/bin/cc
     endif
