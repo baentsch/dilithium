@@ -15,7 +15,7 @@ AES_HEADERS = $(HEADERS) fips202.h aes256ctr.h
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
     CFLAGS += -I/usr/local/Cellar/openssl@1.1/1.1.1d/include
-#    NISTFLAGS += -I/usr/local/Cellar/openssl@1.1/1.1.1d/include
+    NISTFLAGS += -I/usr/local/Cellar/openssl@1.1/1.1.1d/include
     LDFLAGS += -L/usr/local/Cellar/openssl@1.1/1.1.1d/lib
 else
     # clang on OSX doesn't like this; alpine neither

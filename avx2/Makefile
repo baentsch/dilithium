@@ -1,4 +1,3 @@
-CC = /usr/bin/cc
 CFLAGS += -Wall -Wextra -Wpedantic -Wmissing-prototypes -Wredundant-decls \
   -Wshadow -Wpointer-arith -march=native -mtune=native -O3 \
   -fomit-frame-pointer -flto
@@ -17,14 +16,18 @@ AES_HEADERS = $(HEADERS) fips202.h aes256ctr.h
 # a poor man's alternative to cmake
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
+    CC = /usr/bin/cc
     CFLAGS += -I/usr/local/Cellar/openssl@1.1/1.1.1d/include
     #NISTFLAGS += -I/usr/local/Cellar/openssl@1.1/1.1.1d/include
     LDFLAGS += -L/usr/local/Cellar/openssl@1.1/1.1.1d/lib
 else
     OSID := $(shell grep ^ID /etc/os-release)
     ifeq ($(OSID),ID="centos")
+      CC ?= /usr/bin/cc
       CFLAGS += -I/usr/local/ssl/include
       LDFLAGS += -L/usr/local/ssl/lib
+    else
+      CC = /usr/bin/cc
     endif
 endif
 
