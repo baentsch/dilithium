@@ -1,9 +1,9 @@
 CC ?= /usr/bin/cc
 CFLAGS += -Wall -Wextra -Wpedantic -Wmissing-prototypes -Wredundant-decls \
-  -Wshadow -Wpointer-arith -mavx2 -mpopcnt -maes \
-  -march=native -mtune=native -O3 -fomit-frame-pointer
-NISTFLAGS += -Wno-unused-result -mavx2 -mpopcnt -maes \
-  -march=native -mtune=native -O3
+  -Wshadow -Wpointer-arith -mavx2 -mpopcnt -maes -mbmi \
+  -O3 -fomit-frame-pointer
+NISTFLAGS += -Wno-unused-result -mavx2 -mpopcnt -maes -mbmi \
+  -O3
 SOURCES = sign.c packing.c polyvec.c poly.c ntt.S invntt.S pointwise.S \
   consts.c rejsample.c reduce.S rounding.c
 HEADERS = config.h params.h api.h sign.h packing.h polyvec.h poly.h ntt.h \
