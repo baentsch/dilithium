@@ -1,4 +1,4 @@
-CC ?= /usr/bin/cc
+CC = gcc-8
 CFLAGS += -Wall -Wextra -Wpedantic -Wmissing-prototypes -Wredundant-decls \
   -Wshadow -Wpointer-arith -mavx2 -mpopcnt -maes -mbmi \
   -O3 -fomit-frame-pointer
